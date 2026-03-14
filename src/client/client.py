@@ -2,6 +2,7 @@ import asyncio
 import websockets
 import threading
 from queue import Queue
+from typing import List
 
 from .message import ChatMessage
 
@@ -11,8 +12,8 @@ class ChatClient:
         self._uri = uri
         self._username = None
 
-        self._receive_queue = Queue()
-        self._send_queue = Queue()
+        self._receive_queue: Queue[str] = Queue()
+        self._send_queue: Queue[str] = Queue()
         self._connected_flag = False
 
     async def session(self):
@@ -47,7 +48,7 @@ class ChatClient:
     def send_message(self, new_message: str):
         self._send_queue.put(new_message)
 
-    def get_messages(self):
+    def get_messages(self) -> List[str]:
         messages = []
         while not self._receive_queue.empty():
             messages.append(self._receive_queue.get())
