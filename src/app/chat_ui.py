@@ -56,6 +56,6 @@ if new_msg:
 with st.container(height=400):
     for msg in st.session_state.messages:
         if msg['author']:
-            st.markdown(f'<p style="text-align: right;">{msg['msg']}</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="text-align: right;">{msg["msg"]}</p>', unsafe_allow_html=True)
         else:
-            st.markdown(f'<p style="text-align: left;">{msg['msg']}</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="text-align: left;">{msg["msg"]}</p>', unsafe_allow_html=True)

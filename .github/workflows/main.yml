@@ -1,4 +1,4 @@
-name: Rental Systems Pipeline
+name: ChatBox Pipeline
 
 on:
   push:
