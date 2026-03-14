@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chat_box"
+version = "0.1.0"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "streamlit",
+    "streamlit-autorefresh",
+    "websockets"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
