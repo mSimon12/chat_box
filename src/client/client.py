@@ -12,7 +12,7 @@ class ChatClient:
         self._uri = uri
         self._username = None
 
-        self._receive_queue: Queue[str] = Queue()
+        self._receive_queue: Queue[ChatMessage] = Queue()
         self._send_queue: Queue[str] = Queue()
         self._connected_flag = False
 
@@ -30,7 +30,7 @@ class ChatClient:
                     message = await asyncio.wait_for(websocket.recv(), timeout=0.1)
                     recv_message = ChatMessage.decrypt(message)
                     if recv_message.user != self._username:
-                        self._receive_queue.put(recv_message.content)
+                        self._receive_queue.put(recv_message)
 
                 except asyncio.TimeoutError:
                     pass
@@ -48,7 +48,7 @@ class ChatClient:
     def send_message(self, new_message: str):
         self._send_queue.put(new_message)
 
-    def get_messages(self) -> List[str]:
+    def get_messages(self) -> List[ChatMessage]:
         messages = []
         while not self._receive_queue.empty():
             messages.append(self._receive_queue.get())
